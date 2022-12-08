@@ -1,11 +1,13 @@
 const BASE_API = 'http://10.0.0.162/api'
+//const BASE_API = 'http://smartmecanico.duckdns.org:8002/api/v1'
+
 
 // Authentication
 export default {
-  // CHECK TOKEN
-  checkToken: async (token) => {
+  // TOKEN VERIFY
+  tokenkVerify: async (token) => {
     try {
-      const response = await fetch(`${BASE_API}/refresh/`, {
+      const response = await fetch(`${BASE_API}/verify/`, {
         method: 'POST',
         headers: {
           Accept: "application/json",
@@ -20,7 +22,28 @@ export default {
         throw new Error(`${response.status}`);
       }
     } catch (error) {
-      return error.message;
+      return error;
+    }
+  },
+  tokenkRefresh: async (refresh) => {
+    //console.debug(refreshToken)
+    try {
+      const response = await fetch(`${BASE_API}/refresh/`, {
+        method: 'POST',
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify({ refresh })
+      });
+      if (response.status === 200) {
+        const json = await response.json();
+        return json;
+      } else {
+        throw new Error(`${response.status}`);
+      }
+    } catch (error) {
+      return error;
     }
   },
   // SIGN-IN
@@ -41,12 +64,12 @@ export default {
         throw new Error(`${response.status}`);
       }
     } catch (error) {
-      console.log('ERROR API ' + error)
-      return error.message;
+      return error;
     }
   },
   // SIGN-UP
-  signUp: async (username, email, password) => {
+  signUp: async (username, email, password, password2, first_name = null, last_name = null) => {
+    console.log(username, email, password, password2)
     try {
       const response = await fetch(`${BASE_API}/register/`, {
         method: 'POST',
@@ -54,16 +77,20 @@ export default {
           Accept: "application/json",
           "Content-type": "application/json;charset=UTF-8"
         },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, email, password, password2, first_name, last_name, })
       });
-      if (response.status === 200) {
+      if (response.status === 201) {
         const json = await response.json();
         return json;
       } else {
         throw new Error(`${response.status}`);
       }
     } catch (error) {
-      return error.message;
+      return error;
     }
   },
+  //-------------------------------------------------------------------------
+  // API ACCES FIPE TABLE OF BRAZIL
+  //-------------------------------------------------------------------------
+
 };

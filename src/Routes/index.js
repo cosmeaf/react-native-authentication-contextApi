@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { View, ActivityIndicator } from "react-native";
-import { AuthMain } from '../Contexts/AuthContex';
-
+import GlobalContext from '../Contexts/Context';
 
 import AppStack from './AppStack.route';
 import AuthStack from './AuthStack.route';
+import AppTabStack from './TabSatck.route';
 
 
 const Route = () => {
-  const { authentication, isLoading } = AuthMain();
+  const { authentication, isLoading } = useContext(GlobalContext);
 
   if (isLoading) {
     return (
@@ -17,7 +17,6 @@ const Route = () => {
       </View>
     );
   }
-
   return authentication ? <AppStack /> : <AuthStack />
 }
 

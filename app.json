@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "smart_project_v2",
-    "slug": "smart_project_v2",
+    "name": "smart_project_v3",
+    "slug": "smart_project_v3",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "749e59df-69c9-4aa0-9245-686e6a10cca1"
+      }
     }
   }
 }
